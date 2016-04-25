@@ -17,6 +17,26 @@ module msb(in,out);
 	
 endmodule
 
+module lead_zero(in, out);
+
+	input `WORD in;
+	output reg `WORD out;
+	
+	reg `WORD temp;
+	wire `WORD vari;
+	
+	ones Count(temp,vari);
+	
+	always @(*) begin 
+		temp = in | (in>>1);
+			temp = temp | (temp>>2);
+			temp = temp | (temp>>4);
+			temp = temp | (temp>>8);
+			out = 16-vari;
+	end
+
+
+endmodule 
 module ones(in,out);
 	input `WORD in;
 	output reg `WORD out;
