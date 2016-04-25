@@ -1,0 +1,29 @@
+jz $c,$a := 0:4 c:6 a:6
+sz $c     := 0:4 c:6 0:6
+sys       := 0:16
+add $d,$s := 1:4 d:6 s:6
+and $d,$s := 2:4 d:6 s:6
+any $d,$s := 3:4 d:6 s:6
+or  $d,$s := 4:4 d:6 s:6
+shr $d,$s := 5:4 d:6 s:6
+xor $d,$s := 6:4 d:6 s:6
+dup $d,$s := 7:4 d:6 s:6
+ld  $d,$a := 8:4 d:6 a:6
+st  $d,$a := 9:4 d:6 a:6
+li  $d,im := 10:4 d:6 0:6 im:16
+addf $d,$s := 0:16 ;11:4 d:6 s:6
+f2i $d,$s := 0:16 ;12:4 d:6 s:6
+i2f $d,$s := 0:16 ;13:4 d:6 s:6
+invf $d,$s := 0:16 ;14:4 d:6 s:6
+mulf $d,$s := 0:16 ;15:4 d:6 s:6
+.const {zero	one	sign	all	sp	fp	ra	rv
+	u0	u1	u2	u3	u4	u5	u6	u7
+        u8  	u9	u10	u11	u12	u13	u14	u15
+        u16  	u17	u18	u19	u20	u21	u22	u23
+        u24 	u25	u26	u27	u28	u29	u30	u31
+        u32 	u33	u34	u35	u36	u37	u38	u39
+        u40 	u41	u42	u43	u44	u45	u46	u47
+        u48 	u49	u50	u51	u52	u53	u54	u55 }
+.segment .text 16 0x10000 0 .VMEM
+.segment .data 16 0x10000 0 .VMEM
+.const 0 .lowfirst
