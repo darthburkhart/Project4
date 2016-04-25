@@ -1,7 +1,7 @@
 //`timescale 10ns/1ns
 //DIRECTIVES
 `define WORD [15:0]
-
+//fdfs
 `define JZ   4'h0
 `define ADD  4'h1
 `define AND  4'h2
