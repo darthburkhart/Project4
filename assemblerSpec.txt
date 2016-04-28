@@ -11,11 +11,11 @@ dup $d,$s := 7:4 d:6 s:6
 ld  $d,$a := 8:4 d:6 a:6
 st  $d,$a := 9:4 d:6 a:6
 li  $d,im := 10:4 d:6 0:6 im:16
-addf $d,$s := 0:16 ;11:4 d:6 s:6
-f2i $d,$s := 0:16 ;12:4 d:6 s:6
-i2f $d,$s := 0:16 ;13:4 d:6 s:6
-invf $d,$s := 0:16 ;14:4 d:6 s:6
-mulf $d,$s := 0:16 ;15:4 d:6 s:6
+addf $d,$s := 11:4 d:6 s:6
+f2i $d,$s := 12:4 d:6 s:6
+i2f $d,$s := 13:4 d:6 s:6
+invf $d,$s := 14:4 d:6 s:6
+mulf $d,$s := 15:4 d:6 s:6
 .const {zero	one	sign	all	sp	fp	ra	rv
 	u0	u1	u2	u3	u4	u5	u6	u7
         u8  	u9	u10	u11	u12	u13	u14	u15
