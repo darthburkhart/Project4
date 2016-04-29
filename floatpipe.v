@@ -650,8 +650,12 @@ module processor(clk,halt);
 		if (halt == 1'b1)
 		begin
 		//$display("Program Counter: %h",pc);
-		$display("First 15 registers: \n0: %h\n1: %h\n2: %h\n3: %h\n4: %h\n5: %h\n6: %h\n7: %h\n8: %h\n9: %h\n10: %h\n11: %h\n12: %h\n13: %h\n14: %h\n15: %h",registers[8],registers[9],registers[10],registers[11],registers[12],registers[13],registers[14],registers[15],registers[16],registers[17],registers[18],registers[19],registers[20],registers[21],registers[22],registers[23]);
+		//$display("First 15 registers: \n0: %h\n1: %h\n2: %h\n3: %h\n4: %h\n5: %h\n6: %h\n7: %h\n8: %h\n9: %h\n10: %h\n11: %h\n12: %h\n13: %h\n14: %h\n15: %h",registers[8],registers[9],registers[10],registers[11],registers[12],registers[13],registers[14],registers[15],registers[16],registers[17],registers[18],registers[19],registers[20],registers[21],registers[22],registers[23]);
 		//$display("RAM Data: \n%h\n%h\n%h\n%h",ram[50],ram[51],ram[52],ram[53]);
+		for (i=0; i<64;i=i+1) begin
+						$display("Value of register %d is %h",i-8,registers[i]);
+						end
+						$finish;
 		end
 	end
 

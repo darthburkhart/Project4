@@ -1,0 +1,95 @@
+  .data
+test:
+  .word 0x601
+  .text
+main:
+  li   $u0,0x1003
+  add  $u0,$one ; u0=0x1004
+  li   $u1,0x4321
+  li   $u2,0x1234
+  and  $u1,$u2 ; u1=0x0220
+  li   $u3,0x4321
+  or   $u2,$u3 ; u2=0x5335
+  li   $u4,0x1234
+  xor  $u3,$u4 ; u3=0x5115
+  any  $u4,$u4 ; u4=1
+  any  $u5,$zero ; u5=0
+  dup  $u6,$sign ; u6=0x8000
+  li   $u7,0x8421
+  shr  $u7,$u7 ; u7=0x4210
+  li   $u8,test ; u8=0x8000
+  li   $u9,0x0042 ; u9=0x0042
+  st   $u9,$u8 ; test=42
+  ld   $u10,$u8 ; u10=0x0042
+  dup  $u11,$zero ; u11=0
+  li   $u12,taken
+  jz   $u11,$u12
+  dup  $u11,$one ; should not happen
+taken:
+  dup  $u12,$one
+  li   $u13,nottaken
+  jz   $u12,$u13
+  dup  $u12,$all ; u12=0xffff
+nottaken:
+  sz   $u13
+  dup  $u13,$zero ; u13=0x0000
+  dup  $u14,$zero ; u14=0x0000
+  sz   $u14
+  dup  $u14,$one
+  dup  $u15,$zero ; u15=0x0000
+  //sys
+good:
+  //dup  $u15,$all ; should not execute
+  i2f  $u16,$zero ; u16=0x0000
+  i2f  $u17,$u9 ; u17=0x4284
+  li   $u18,0xc040    
+  li   $u19,0x7fff 
+  li   $u20,0x8000 
+  i2f  $u21,$u19  ; u21=0x46ff
+  i2f  $u22,$u20  ; u22=0x4700
+  i2f  $u18,$u18  ; u18=-3
+  f2i  $u23,$zero ; u23=0x0000
+  f2i  $u24,$u18  ; u24=0xc040
+  f2i  $u25,$u21  ; u25=0x7fff
+  f2i  $u26,$u21  ; u26=0x8000
+  li   $u27,0x40a9
+  f2i  $u28,$u27  ;?
+  li   $u29,0x40b0  ; 5.5
+  li   $u30,0x4073  ; 3.8
+  li   $u31,0xc089  ; -4.3
+  li   $u32,0xc02c  ; -2.7
+  addf $u29,$u30    ; u29=0x4114  or 9.25
+  addf $u30,$u31    ; u30=0xbef8  or -0.484375
+  addf $u31,$u32    ; u31=0xc0df  or -6.96875
+  li   $u33,0x40a3  ; 5.1
+  li   $u34,0xc0a3  ; -5.1
+  addf $u33,u34     ; u33=0x0000  or 0
+  li   $u35,0x40b0  ; 5.5
+  li   $u36,0x4073  ; 3.8
+  li   $u37,0xc089  ; -4.3
+  li   $u38,0xc02c  ; -2.7
+  mulf $u35,$u36    ; u35=0x41a7  or 20.875
+  mulf $u36,$u37    ; u36=0xc182  or -16.25
+  mulf $u37,$u38    ; u37=0x4138  or 11.5
+  invf $u39,$zero   ; u39=0
+  li   $u40,0x40a0  ; 5
+  invf $u40,$u40    ; u40=0x3e4c  or 0.1992
+  li   $u41,0xc2c6  ; -99
+  invf $u41,$u41    ; u41=0xbc25  or -0.01007
+  sys
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
