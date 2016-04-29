@@ -170,7 +170,6 @@ module addf(in1,in2,out);
 					out[14:7] = out[14:7] ;
 					out[6:0] = {outMan[6:0]};
 				end
-				$display("%b,%b,%b,%b",man1,man2,outMan,out);
 			end
 		end	
 	end
@@ -212,7 +211,6 @@ module i2f(in,out);
 				out[14:7] = 127 + (15-numZeros); //set exponent
 				out[6:0] = temp >> (15-numZeros); //set mantissa
 			end
-			//$display("%b,%d,%b",in,numZeros,temp);
 		end
 	end
 endmodule
@@ -306,7 +304,8 @@ module recip_float(in, out);
 	//They are good for initializing variables and constants (like LUTs)
 	//The best way to initialize memory is to use the readmemh(...) function, its also less lines
 	initial begin
-		$readmemh("recip.vmem",lookup);
+		
+               $readmemh1(lookup);
 	end
 
 	always @(*) begin
@@ -369,7 +368,6 @@ module ALU(opr1,opr2,out1,op,cc);
 			end
 			`ANY: begin
 				out1 <= (opr1 == 16'b0 ? 16'b000000:16'b000001);
-				//$display("out1: %h",out1);
 			end
 			`OR: begin
 				out1 <= opr1 | opr2;
@@ -403,7 +401,6 @@ module ALU(opr1,opr2,out1,op,cc);
 				out1 <= opr1;
 			end
 		endcase
-		$display("%h %h %h",opr1,opr2,out1);
 	end
 	
 	always @(out1)
@@ -444,16 +441,18 @@ module processor(clk,halt);
 	reg holdUp;
 	wire `WORD toStage3;
 	wire `WORD cc;
-	//reg `WORD i;
+	reg `WORD i;
 	reg squashNext2,squashNext1;
 	ALU alu(op2,op1,toStage3,operation,cc);
 		
 	initial begin
-		$readmemh("f2i.ram",ram);
+		
+                $readmemh0(ram);
 		halt<=0;
 		holdUp<=0;
 		//register file initialization
-		$readmemh("registers.ram",registers);
+
+                $readmemh2(registers);
 		pc <= 16'b0;
 		squashNext1<=0;
 		squashNext2<=0;
@@ -465,7 +464,6 @@ module processor(clk,halt);
 	
 	
 	always@(clk) begin
-		//$display("Clock: %b",clk);
 	end
 	
 	//stage 1 instruction fetch
@@ -505,7 +503,6 @@ module processor(clk,halt);
 		end else begin
 			stop1<=1;
 		end
-		//#2 $display("Stage 1: %h",stage1[5]);//$display("Stage1: %h  %h",pc,ram[pc]);
 	end
 	
 	
@@ -534,7 +531,6 @@ module processor(clk,halt);
 			stage2[4] <= 16'bz;
 			stage2[5] <= 16'bz;
 		end		
-		//#4 $display("Stage 2: %h",stage2[5]);
 	end
 	
 	
@@ -544,7 +540,6 @@ module processor(clk,halt);
 		op1<=stage2[1];
 		op2<=stage2[2];
 		operation<=stage2[0][3:0];
-		$display("%h %h",op1,op2);
 	end
 	
 	always@(negedge clk)
@@ -584,7 +579,6 @@ module processor(clk,halt);
 			endcase
 		end
 	
-		//#6 $display("Stage 3: %h\n",stage3[5]);
 	end
 	
 	always@(squashNext2) begin
@@ -642,16 +636,12 @@ module processor(clk,halt);
 			default: registers[stage3[0][5:0]]<=stage3[1];
 		endcase
 		end
-		//#15 $display("Stage 4: %h",registers[stage3[0][5:0]],stage3[1]);
 	end
 	
 	always@(halt)
 	begin
 		if (halt == 1'b1)
 		begin
-		//$display("Program Counter: %h",pc);
-		//$display("First 15 registers: \n0: %h\n1: %h\n2: %h\n3: %h\n4: %h\n5: %h\n6: %h\n7: %h\n8: %h\n9: %h\n10: %h\n11: %h\n12: %h\n13: %h\n14: %h\n15: %h",registers[8],registers[9],registers[10],registers[11],registers[12],registers[13],registers[14],registers[15],registers[16],registers[17],registers[18],registers[19],registers[20],registers[21],registers[22],registers[23]);
-		//$display("RAM Data: \n%h\n%h\n%h\n%h",ram[50],ram[51],ram[52],ram[53]);
 		for (i=0; i<64;i=i+1) begin
 						$display("Value of register %d is %h",i-8,registers[i]);
 						end
@@ -669,9 +659,8 @@ module testBench;
 
 	initial 
 	begin
-		//$dumpfile;
-		//$dumpvars(0,testBench);
-		//$display("Here 0");
+		$dumpfile;
+		$dumpvars(0,testBench);
 		#100 //Wait until ALL memory is initialized
 		clk <= 0;
 		while (clear != 1)
@@ -680,7 +669,7 @@ module testBench;
 			#100;
 			clk<=~clk;		
 		end
-		//$finish;
+		
 	end
 	
 	
