@@ -37,9 +37,9 @@ nottaken:
   sz   $u14
   dup  $u14,$one
   dup  $u15,$zero ; u15=0x0000
-  //sys
+  ;sys
 good:
-  //dup  $u15,$all ; should not execute
+  ;dup  $u15,$all ; should not execute
   i2f  $u16,$zero ; u16=0x0000
   i2f  $u17,$u9 ; u17=0x4284
   li   $u18,0xc040    
