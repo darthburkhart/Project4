@@ -165,7 +165,14 @@ module addf(in1,in2,out);
 				end
 				if (numZeros > 1) begin  //////////////???????????
 					out[14:7] = out[14:7] + (1-numZeros);
-					out[6:0] = {outMan[5:0], 1'b0};
+					case (numZeros)
+						2: begin out[6:0] = {outMan[5:0], 1'b0}; end
+						3: begin out[6:0] = {outMan[4:0], 3'b0}; end
+						4: begin out[6:0] = {outMan[3:0], 4'b0}; end
+						5: begin out[6:0] = {outMan[2:0], 5'b0}; end
+						6: begin out[6:0] = {outMan[1:0], 6'b0}; end
+						7: begin out[6:0] = {7'b0}; end
+					endcase
 				end else begin
 					out[14:7] = out[14:7] ;
 					out[6:0] = {outMan[6:0]};
