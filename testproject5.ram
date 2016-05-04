@@ -46,12 +46,12 @@ good:
   li   $u19,0x7fff 
   li   $u20,0x8000 
   i2f  $u21,$u19  ; u21=0x46ff
-  i2f  $u22,$u20  ; u22=0x4700
-  i2f  $u18,$u18  ; u18=-3
+  i2f  $u22,$u20  ; u22=0xc700
+  i2f  $u18,$u18  ; u18=0xc67f
   f2i  $u23,$zero ; u23=0x0000
   f2i  $u24,$u18  ; u24=0xc040
-  f2i  $u25,$u21  ; u25=0x7fff
-  f2i  $u26,$u21  ; u26=0x8000
+  f2i  $u25,$u21  ; u25=0x7f80
+  f2i  $u26,$u21  ; u26=0x7f80
   li   $u27,0x40a9
   f2i  $u28,$u27  ;?
   li   $u29,0x40b0  ; 5.5
@@ -63,7 +63,7 @@ good:
   addf $u31,$u32    ; u31=0xc0df  or -6.96875
   li   $u33,0x40a3  ; 5.1
   li   $u34,0xc0a3  ; -5.1
-  addf $u33,u34     ; u33=0x0000  or 0
+  addf $u33,$u34     ; u33=0x0000  or 0
   li   $u35,0x40b0  ; 5.5
   li   $u36,0x4073  ; 3.8
   li   $u37,0xc089  ; -4.3
@@ -77,19 +77,3 @@ good:
   li   $u41,0xc2c6  ; -99
   invf $u41,$u41    ; u41=0xbc25  or -0.01007
   sys
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    

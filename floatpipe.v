@@ -163,7 +163,7 @@ module addf(in1,in2,out);
 					outMan = man2-man1;
 					out[15] = op2[15];
 				end
-				if (numZeros == 2) begin  //////////////???????????
+				if (numZeros > 1) begin  //////////////???????????
 					out[14:7] = out[14:7] + (1-numZeros);
 					out[6:0] = {outMan[5:0], 1'b0};
 				end else begin
@@ -270,8 +270,6 @@ module f2i(in,out);
 		end else begin
 			//normalize the mantissa (add 1 to front)
 			temp = {16'b1,in[6:0]};
-			$display("F2I: %h",in);
-			
 			// if the exponent is larger than the bias (127) shift the mantissa the difference
 			if (in[14:7] >= 127) begin
 				temp = temp << (in[14:7] - 127);
@@ -330,6 +328,9 @@ module recip_float(in, out);
 			temp[7:0] = lookup[in[6:0]]; //This is for the readmemh
 			out[6:0] = temp[6:0]; //bottom 7 bits, not top 7
 		end
+                if (in == 16'b0) begin
+                        out = 16'b0;
+                end
 	end// end of always block
 endmodule
 
@@ -668,9 +669,6 @@ module testBench;
 			//$display("Clock %b",clk);
 			#100;
 			clk<=~clk;		
-		end
-		
+		end	
 	end
-	
-	
 endmodule

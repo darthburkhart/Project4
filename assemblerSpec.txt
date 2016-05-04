@@ -25,5 +25,5 @@ mulf $d,$s := 15:4 d:6 s:6
         u40 	u41	u42	u43	u44	u45	u46	u47
         u48 	u49	u50	u51	u52	u53	u54	u55 }
 .segment .text 16 0x10000 0 .VMEM
-.segment .data 16 0x10000 0 .VMEM
+.segment .data 16 0x10000 0x8000 .VMEM
 .const 0 .lowfirst
